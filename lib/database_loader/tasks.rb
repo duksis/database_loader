@@ -56,7 +56,7 @@ namespace :db do
           DatabaseLoader.types.each do |type|
             desc "Dump SQL #{type.to_s.singularize} statements in #{schema}"
             task type => :environment do
-              connection_config = ActiveRecord::Base.connection.raw_connection.instance_variable_get("@config").symbolize_keys
+              connection_config = DatabaseLoader.connection_config
               DatabaseLoader.files(schema, type, ENV['NAME']).each do |file|
                 file.username = connection_config[:username]
                 puts "-- #{file.type}/#{file.name} ".ljust(80, "-")
@@ -81,7 +81,7 @@ namespace :db do
           else
             files = `find ./db/sql/#{schema} -type f`.strip.split("\n").sort
           end
-          connection_config = ActiveRecord::Base.connection.raw_connection.instance_variable_get("@config").symbolize_keys
+          connection_config = DatabaseLoader.get_connection_config
           pkg_name = ENV['NAME']
           pkg_dir = File.join(DatabaseLoader.package_path, connection_config[:username].to_s.downcase)
           # Package SQL files

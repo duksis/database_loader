@@ -82,9 +82,12 @@ module DatabaseLoader
     end
   end
 
+  def self.connection_config
+    @connetion_config ||= ActiveRecord::Base.connection.raw_connection.instance_variable_get("@config").symbolize_keys
+  end
+
   def self.connect_as(schema)
     begin
-      connection_config = ActiveRecord::Base.connection.raw_connection.instance_variable_get("@config").symbolize_keys
       connection_name = nil
       # When running rake test|spec RAILS_ENV is development by default,
       # so we need to guess config from current connection.
