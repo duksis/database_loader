@@ -18,4 +18,5 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency(%q<rspec>, ["~> 2.8.0"])
+  s.add_dependency(%q<activesupport>, [">= 0"])
 end
