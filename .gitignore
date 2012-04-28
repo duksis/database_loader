@@ -1,3 +1,6 @@
 pkg/*
 *.gem
 .bundle
+Guardfile
+.rvmrc
+Gemfile.lock
