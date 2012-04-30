@@ -23,6 +23,19 @@ module DatabaseLoader
     end
     alias_method :to_s, :render
 
+    def dependencies(files = [])
+      @dependencies = []
+      # check for dependencies to files
+      files.each do |file|
+        unless self == file
+          file.statements.each do |statment|
+            (@dependencies.append(file); break) if self.render.include?(statment.name)
+          end
+        end
+      end
+      @dependencies
+    end
+
     def statements
       render.split(/\r?\n\/\r?\n/).reject(&:blank?).map do |str|
         SqlStatement.new(str)
