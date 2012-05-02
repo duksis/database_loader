@@ -2,8 +2,17 @@ module DatabaseLoader
   class SqlFile
     attr_accessor :path, :username
 
+    include Comparable
+
     def initialize(path)
       self.path = path
+    end
+
+    def <=>(other)
+      if self.object_id == other.object_id then 0
+      elsif self.dependencies.size > 1 && self.dependencies.include?(other) then -1
+      else 1
+      end
     end
 
     def type
