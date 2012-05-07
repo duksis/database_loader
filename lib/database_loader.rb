@@ -26,6 +26,10 @@ module DatabaseLoader
   mattr_accessor :template_engine
   self.template_engine = :erb
 
+  # Disable and enable dependencie handling
+  mattr_accessor :gather_dependencies
+  self.gather_dependencies = true
+
   # Path to store generated deployement packages.
   mattr_accessor :package_path
   self.package_path = Dir.tmpdir
@@ -48,6 +52,7 @@ module DatabaseLoader
         end
       end
     end
+    files.each{|file| file.dependencies files}.sort! if self.gather_dependencies
     files
   end
 

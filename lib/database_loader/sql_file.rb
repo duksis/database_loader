@@ -32,9 +32,10 @@ module DatabaseLoader
     end
     alias_method :to_s, :render
 
-    def dependencies(files = [])
-      @dependencies = []
+    def dependencies(files = nil)
+      return @dependencies || [] unless files.present?
       # check for dependencies to files
+      @dependencies = []
       files.each do |file|
         unless self == file
           file.statements.each do |statment|

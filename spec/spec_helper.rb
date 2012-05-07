@@ -1,6 +1,11 @@
-$LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__))) unless $LOAD_PATH.include?(File.expand_path(File.dirname(__FILE__)))
+$LOAD_PATH.unshift(File.dirname(__FILE__)) unless $LOAD_PATH.include?(File.dirname(__FILE__))
 
 require 'active_support/core_ext'
 
-require 'database_loader/sql_statement'
-require 'database_loader/sql_file'
+class Rails
+  def self.root
+    File.expand_path('support',File.dirname(__FILE__))
+  end
+end
+
+require 'database_loader'

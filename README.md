@@ -80,6 +80,9 @@ config/initializers/database_loader.rb
     # Path to SH template that will be used to generate deployement script (see examples/template.sh)
     DatabaseLoader.template_path = Rails.root.join("db", "sql", "template.sh")
 
+    # Disable sql dependecy handling if needed with
+    DatabaseLoader.gather_dependencies = false
+
 ## Setting up database connections
 
 Convention is to create additional configurations for
