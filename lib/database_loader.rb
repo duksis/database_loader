@@ -90,7 +90,7 @@ module DatabaseLoader
       # so we need to guess config from current connection.
       ActiveRecord::Base.configurations.each do |name, config|
         # current configuration?
-        if connection_config.symbolize_keys == config.symbolize_keys
+        if connection_config == config.symbolize_keys
           # current configuration has also _apps configuration?
           if ActiveRecord::Base.configurations.any? { |other_name, _| other_name.to_s == "#{name}_#{schema}" }
             connection_name = name
